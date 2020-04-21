@@ -1,0 +1,14 @@
+.div-border{
+    border-style: solid;
+    margin-bottom: 20px;
+    height: 100px;
+    width: 200px;
+    text-align: center;
+  }
+  
+  .container{
+    margin-left: 80px;
+    margin-top: 20px;
+    
+  }
+  
