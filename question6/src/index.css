@@ -17,3 +17,12 @@ form{
   margin-top: 30px;
   
 }
+
+.error-css{
+  color: red;
+}
+
+a, a:hover{
+  color: white;
+}
+
