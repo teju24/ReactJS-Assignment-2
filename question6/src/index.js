@@ -1,14 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import LoginComponent from './LoginComponent';
+import LoginComponent, { AdminDashboard } from './LoginComponent';
 import RegisterComponent from './RegisterComponent';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 
+
+
 const RouterComponent =()=>(
   <Router>
     <Route exact path="/" component={LoginComponent}></Route>
+    <Route exact path ="/admin" component={AdminDashboard}></Route>
     <Route exact path="/login" component={LoginComponent}></Route>
     <Route exact path="/register" component={RegisterComponent}></Route>
   </Router>

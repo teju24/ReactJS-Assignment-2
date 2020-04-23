@@ -10,9 +10,10 @@ export const FormErrors = ({ formErrors }) =>
 
 class RegisterComponent extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.handleUserInput = this.handleUserInput.bind(this)
+        this.register = this.register.bind(this);
         this.state = {
             first_name: '',
             last_name: '',
@@ -48,7 +49,6 @@ class RegisterComponent extends React.Component {
         let last_nameValid = this.state.last_nameValid;
         let user_nameValid = this.state.user_nameValid;
         let passwordValid = this.state.passwordValid;
-        debugger
         switch (fieldName) {
             case 'first_name':
                 first_nameValid = value.length >= 3;;
@@ -72,7 +72,7 @@ class RegisterComponent extends React.Component {
         this.setState({
             formErrors: fieldValidationErrors,
             first_nameValid: first_nameValid,
-            last_nameValid:last_nameValid,
+            last_nameValid: last_nameValid,
             passwordValid: passwordValid
         }, this.validateForm);
     }
@@ -80,12 +80,36 @@ class RegisterComponent extends React.Component {
     validateForm() {
         this.setState({ formValid: this.state.first_nameValid && this.state.passwordValid });
     }
+
+    register(event) {
+        event.preventDefault();
+        var user={
+            u_name:this.state.user_name,
+            pass:this.state.password
+        }
+        let userarr=JSON.parse(localStorage.getItem('users'));
+        if(userarr===null){
+            userarr=[]
+        }
+        userarr.push(user);
+        localStorage.setItem('users',JSON.stringify(userarr));
+        this.setState({
+            first_name: '',
+            last_name: '',
+            user_name: '',
+            password: ''
+        })
+    
+        document.getElementById('successmsg').innerHTML = "Registration successful !!! you can log in now "
+
+    }
+
     render() {
         return (
             <div className="container">
                 <h2>Registration Form</h2>
 
-                <form className="container">
+                <form onSubmit={this.register} className="container">
                     <div className="row">
                         <div className="col-xs-6 col-sm-6 col-md-6">
                             <div className="form-group">
@@ -162,24 +186,27 @@ class RegisterComponent extends React.Component {
                     </div>
 
                     <div className="row">
-                        <div className="col-xs-6 col-sm-6 col-md-6">
+                        <div className="col-xs-2 col-sm-2 col-md-2">
                             <div className="form-group">
                                 <button type="submit"
                                     className="btn btn-primary"
                                     disabled={!this.state.formValid}>Sign up</button>
                             </div>
                         </div>
+                        <div id="successmsg" className="successmsg">
+
+                        </div>
                     </div>
                     <div className="row">
                         <div className="col-xs-6 col-sm-6 col-md-6">
                             <div className="form-group">
-                            <button type="submit" className="btn btn-primary">
-                                <Link to="/login">Click to login</Link>
+                                <button type="submit" className="btn btn-primary">
+                                    <Link to="/login">Click to login</Link>
                                 </button>
                             </div>
                         </div>
                     </div>
-                
+
                 </form>
             </div >
         )
